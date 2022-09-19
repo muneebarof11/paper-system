@@ -1,0 +1,27 @@
+[24-Jan-2021 16:37:54 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'theeonto_testsystem'@'localhost' (using password: YES) in /home/visiipdq/ets.nabeelschool.com/public/ap.php on line 575
+[24-Jan-2021 16:37:54 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'theeonto_testsystem'@'localhost' (using password: YES) in /home/visiipdq/ets.nabeelschool.com/public/ap.php on line 575
+[24-Jan-2021 16:37:54 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/visiipdq/ets.nabeelschool.com/public/ap.php on line 610
+[26-Feb-2022 15:38:25 America/New_York] PHP Warning:  file_get_contents(https://latex.codecogs.com/svg.image?http://latex.codecogs.com/svg.image?\left( {x + 7} ight)\left( {x - 3} ight) = - 7): failed to open stream: HTTP request failed! HTTP/1.1 400 Bad request
+ in /home/hayatschool/easytestsolution.com/public/test.php on line 4
+[26-Feb-2022 15:38:25 America/New_York] PHP Notice:  Undefined variable: content in /home/hayatschool/easytestsolution.com/public/test.php on line 5
+[26-Feb-2022 15:38:48 America/New_York] PHP Warning:  file_get_contents(https://latex.codecogs.com/svg.image?http://latex.codecogs.com/svg.image?\left( {x + 7} ight)\left( {x - 3} ight) = - 7): failed to open stream: HTTP request failed! HTTP/1.1 400 Bad request
+ in /home/hayatschool/easytestsolution.com/public/test.php on line 5
+[26-Feb-2022 15:38:48 America/New_York] PHP Notice:  Undefined variable: content in /home/hayatschool/easytestsolution.com/public/test.php on line 6
+[26-Feb-2022 15:40:17 America/New_York] PHP Warning:  file_get_contents(https://latex.codecogs.com/png.image?http://latex.codecogs.com/svg.image?\left( {x + 7} ight)\left( {x - 3} ight) = - 7): failed to open stream: HTTP request failed! HTTP/1.1 400 Bad request
+ in /home/hayatschool/easytestsolution.com/public/test.php on line 5
+[26-Feb-2022 15:40:17 America/New_York] PHP Notice:  Undefined variable: content in /home/hayatschool/easytestsolution.com/public/test.php on line 6
+[26-Feb-2022 15:51:58 America/New_York] PHP Warning:  file_get_contents(https://latex.codecogs.com/png.image?https://math.now.sh?from=\left( {x + 7} ight)\left( {x - 3} ight) = - 7): failed to open stream: HTTP request failed! HTTP/1.1 400 Bad request
+ in /home/hayatschool/easytestsolution.com/public/test.php on line 6
+[26-Feb-2022 15:51:58 America/New_York] PHP Notice:  Undefined variable: content in /home/hayatschool/easytestsolution.com/public/test.php on line 7
+[26-Feb-2022 15:52:29 America/New_York] PHP Notice:  Undefined variable: content in /home/hayatschool/easytestsolution.com/public/test.php on line 7
+[26-Feb-2022 15:55:13 America/New_York] PHP Notice:  Undefined variable: content in /home/hayatschool/easytestsolution.com/public/test.php on line 7
+[26-Feb-2022 15:58:28 America/New_York] PHP Notice:  Undefined variable: result in /home/hayatschool/easytestsolution.com/public/test.php on line 13
+[26-Feb-2022 16:01:14 America/New_York] PHP Notice:  Undefined variable: result in /home/hayatschool/easytestsolution.com/public/test.php on line 13
+[26-Feb-2022 16:01:14 America/New_York] PHP Notice:  Undefined variable: result in /home/hayatschool/easytestsolution.com/public/test.php on line 15
+[26-Feb-2022 16:06:36 America/New_York] PHP Warning:  file_get_contents(https://latex.codecogs.com/svg.image?\left( {x + 7} \right)\left( {x - 3} \right) = - 7): failed to open stream: HTTP request failed! HTTP/1.1 400 Bad request
+ in /home/hayatschool/easytestsolution.com/public/test.php on line 13
+[14-May-2022 18:04:06 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'theeonto_testsystem'@'localhost' (using password: YES) in /home/hayatschool/easytestsolution.com/public/ap.php on line 575
+[14-May-2022 18:04:06 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'theeonto_testsystem'@'localhost' (using password: YES) in /home/hayatschool/easytestsolution.com/public/ap.php on line 575
+[14-May-2022 18:04:06 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /home/hayatschool/easytestsolution.com/public/ap.php on line 610
+[14-May-2022 18:04:56 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'theeonto_testsystem'@'localhost' (using password: YES) in /home/hayatschool/easytestsolution.com/public/ap.php on line 575
+[14-May-2022 18:05:05 UTC] PHP Warning:  mysqli_connect(): (42000/1044): Access denied for user 'hayatschool_ets'@'localhost' to database 'theeonto_testsystem' in /home/hayatschool/easytestsolution.com/public/ap.php on line 575

@@ -1,0 +1,15 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/jsx/classes.js": "/jsx/classes.js",
+    "/jsx/pclasses.js": "/jsx/pclasses.js",
+    "/jsx/ppublishers.js": "/jsx/ppublishers.js",
+    "/jsx/pquestions.js": "/jsx/pquestions.js",
+    "/jsx/preview.js": "/jsx/preview.js",
+    "/jsx/psections.js": "/jsx/psections.js",
+    "/jsx/psubjects.js": "/jsx/psubjects.js",
+    "/jsx/publishers.js": "/jsx/publishers.js",
+    "/jsx/questions.js": "/jsx/questions.js",
+    "/jsx/saved-papers.js": "/jsx/saved-papers.js",
+    "/jsx/sections.js": "/jsx/sections.js",
+    "/jsx/subjects.js": "/jsx/subjects.js"
+}
