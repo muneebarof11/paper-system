@@ -333,8 +333,10 @@ class PQuestions extends Component {
     }
 
     randomSelect(totalItems) {
+        this.clearSelection();
+
         random_numbers = [];
-        $(".selected_question").trigger("click");
+        // $(".selected_question").trigger("click");
         let should_iterate = this.state.total_questions;
         if (should_iterate <= 0) return false;
 
@@ -798,7 +800,7 @@ class PQuestions extends Component {
                         className="btn btn-dark col-lg-4 add-question-button"
                         onClick={() => this.confirmSelected(obj)}
                     >
-                        Add Questions
+                        Add Selected Questions
                     </button>
                     <button
                         className="btn btn-warning col-lg-4 random-select-button"
