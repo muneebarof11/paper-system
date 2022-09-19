@@ -300,6 +300,7 @@ class PQuestions extends Component {
         formData.append("topic_ids", this.state.topic_ids);
         formData.append("index", index);
         formData.append("marks", marks);
+        debugger;
         this.props.removeSavedQuestionSection(formData);
         if (index) {
             let total_marks = parseInt(this.state.total_marks);
@@ -927,7 +928,7 @@ class PQuestions extends Component {
             this.props.subject.medium === "urdu" ? false : true;
         const d_rtl_question_title =
             this.props.subject.medium === "eng" ? false : true;
-
+        debugger;
         return (
             <div className="question_title_row pt-3 col-lg-12 row">
                 <div
@@ -936,12 +937,16 @@ class PQuestions extends Component {
                     } ${!d_eng_question_title ? "d-none" : ""}`}
                 >
                     <h4>
-                        Q{i + 1}) {obj.question_statement_en}: {is_ignored}
+                        Q{i + 1}) &nbsp; {obj.question_statement_en}:{" "}
+                        {is_ignored}
                     </h4>
                 </div>
                 <div className="col-lg-4 text-center">
                     {this.editBtn(i, obj)}
-                    {this.removeBtn(obj.id, info.marks)}
+                    {this.removeBtn(
+                        obj.id || this.props.info.index,
+                        info.marks
+                    )}
                     Total Marks:{" "}
                     {`${info.question_count} x ${info.each_question_marks} = ${info.marks}`}
                 </div>
@@ -972,6 +977,7 @@ class PQuestions extends Component {
     }
 
     removeBtn(index, marks) {
+        debugger;
         return (
             <i
                 className="fa fa-trash btn-danger"

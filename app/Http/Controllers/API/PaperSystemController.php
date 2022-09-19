@@ -120,7 +120,6 @@ class PaperSystemController extends Controller
             } else {
                 $data = $data->get();
             }
-
         } else {
             // exclude urdu, isl and eng
             if (!in_array($subject->code, Subject::$special_subjects)) {
@@ -128,8 +127,8 @@ class PaperSystemController extends Controller
             }
         }
 
-        foreach($data as &$d) {
-            if(in_array($d->id, $ids)) {
+        foreach ($data as &$d) {
+            if (in_array($d->id, $ids)) {
                 $d->removeable = 1;
             } else {
                 $d->removeable = 0;
@@ -186,9 +185,9 @@ class PaperSystemController extends Controller
             ->first();
 
         $response = $data;
-        if($data->subjects->isNotEmpty()) {
+        if ($data->subjects->isNotEmpty()) {
             foreach ($data->subjects as $i => $subject) {
-                if(!empty($subject->pivot->thumbnail)) {
+                if (!empty($subject->pivot->thumbnail)) {
                     $subject->cover_thumbnail = $subject->pivot->thumbnail;
                 }
                 unset($subject->pivot);
@@ -247,7 +246,7 @@ class PaperSystemController extends Controller
 
     public function getQuestionsByClassSubjects(Request $request)
     {
-        if (!$request->has('class_id') OR !$request->has('subject_id') OR !$request->has('section_id')) {
+        if (!$request->has('class_id') or !$request->has('subject_id') or !$request->has('section_id')) {
             return response()->json([]);
         }
 
@@ -282,7 +281,7 @@ class PaperSystemController extends Controller
 
     public function getMcqOfTopic(Request $request)
     {
-        if (!$request->has('class_id') OR !$request->has('subject_id') OR !$request->has('type_id')) {
+        if (!$request->has('class_id') or !$request->has('subject_id') or !$request->has('type_id')) {
             return response()->json([]);
         }
 
@@ -305,7 +304,7 @@ class PaperSystemController extends Controller
 
     public function getGeneralQuestion(Request $request)
     {
-        if (!$request->has('class_id') OR !$request->has('subject_id') OR !$request->has('type_id')) {
+        if (!$request->has('class_id') or !$request->has('subject_id') or !$request->has('type_id')) {
             return response()->json([]);
         }
 
@@ -328,7 +327,7 @@ class PaperSystemController extends Controller
     public function addClass(Request $request)
     {
         try {
-            if ($request->has('name') AND $request->has('syllabus_type_id')) {
+            if ($request->has('name') and $request->has('syllabus_type_id')) {
 
                 $syllabus_type_id = Helper::easyDecode($request->post('syllabus_type_id'));
                 $name = $request->post('name');
@@ -432,9 +431,9 @@ class PaperSystemController extends Controller
             }
 
             $math_type_subjects = ['Computer', 'computer', 'Physics', 'physics', 'Statistics', 'statistics', 'Accounting', 'accounting', 'Chemistry', 'chemistry', 'Math', 'math', 'mathematics', 'Mathematics'];
-	if(in_array($post['name'], $math_type_subjects)) {
-	    $subject->code = 'mat';
-	}
+            if (in_array($post['name'], $math_type_subjects)) {
+                $subject->code = 'mat';
+            }
 
             $subject->medium = $post['medium'];
             $subject->save();
@@ -460,7 +459,6 @@ class PaperSystemController extends Controller
                 'message' => 'New subject added!',
                 'data' => $subject
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
@@ -484,7 +482,7 @@ class PaperSystemController extends Controller
 
             $post = $request->all();
             $subject = Subject::find(Helper::easyDecode($post['id']));
-            if(empty($subject)) {
+            if (empty($subject)) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Something went wrong!',
@@ -526,7 +524,6 @@ class PaperSystemController extends Controller
                 'message' => 'Subject Updated!',
                 'data' => $subject
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
@@ -550,7 +547,7 @@ class PaperSystemController extends Controller
 
             $post = $request->all();
             $publisher = SyllabusType::find(Helper::easyDecode($post['id']));
-            if(empty($publisher)) {
+            if (empty($publisher)) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Something went wrong!',
@@ -567,7 +564,6 @@ class PaperSystemController extends Controller
                 'message' => 'Publisher Updated!',
                 'data' => $publisher
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
@@ -668,7 +664,6 @@ class PaperSystemController extends Controller
                 'message' => 'New syllabus added!',
                 'data' => $syllabus
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
@@ -702,7 +697,7 @@ class PaperSystemController extends Controller
             ->where('parent_id', '=', $parent_id)
             ->where('subject_code', '=', $subject_code);
 
-        if ($parent_id == 0 AND (!empty($parent_title) AND !empty($parent_rtl_name))) {
+        if ($parent_id == 0 and (!empty($parent_title) and !empty($parent_rtl_name))) {
 
             $section = $section->where(function ($query) use ($parent_title, $parent_rtl_name) {
 
@@ -798,7 +793,7 @@ class PaperSystemController extends Controller
         /**
          * if english question options are present but its statement is missing
          */
-        if (empty($question_en) AND !empty($options_en)) {
+        if (empty($question_en) and !empty($options_en)) {
             return response()->json([
                 'status' => false,
                 'message' => 'English question cannot be empty!',
@@ -808,7 +803,7 @@ class PaperSystemController extends Controller
         /**
          * if english question is present but its options are missing
          */
-        if (!empty($question_en) AND empty($options_en)) {
+        if (!empty($question_en) and empty($options_en)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Must add at-least one english option',
@@ -818,7 +813,7 @@ class PaperSystemController extends Controller
         /**
          * if rtl question options are present but its statement is missing
          */
-        if (empty($question_rtl) AND !empty($options_rtl)) {
+        if (empty($question_rtl) and !empty($options_rtl)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Urdu question cannot be empty!',
@@ -829,13 +824,13 @@ class PaperSystemController extends Controller
         /**
          * if rtl question is present but its options are missing
          */
-//        if (!empty($question_rtl) AND empty($options_rtl)) {
-//            return response()->json([
-//                'status' => false,
-//                'message' => 'Must add at-least one Urdu option',
-//                'data' => []
-//            ]);
-//        }
+        //        if (!empty($question_rtl) AND empty($options_rtl)) {
+        //            return response()->json([
+        //                'status' => false,
+        //                'message' => 'Must add at-least one Urdu option',
+        //                'data' => []
+        //            ]);
+        //        }
 
         $toSubmit = [
             'subject_id' => $subject_id,
@@ -851,7 +846,7 @@ class PaperSystemController extends Controller
          * WE NEED TO PROCESS MATH QUESTIONS BEFORE SAVING
          */
         $subject = Subject::find($subject_id);
-        if($subject->code == 'mat') {
+        if ($subject->code == 'mat') {
             $params = [
                 'question_en' => $question_en,
                 'question_rtl' => $question_rtl,
@@ -876,7 +871,7 @@ class PaperSystemController extends Controller
                 'question_statement' => $question_en,
                 'correct_answer' => $correct_option
             ]);
-            if(!empty($options_en)) {
+            if (!empty($options_en)) {
                 foreach ($options_en as $option) {
                     QuestionOption::create([
                         'translation_id' => $en->id,
@@ -896,7 +891,7 @@ class PaperSystemController extends Controller
                 'question_statement' => $question_rtl,
                 'correct_answer' => $correct_option
             ]);
-            if(!empty($options_rtl)) {
+            if (!empty($options_rtl)) {
                 foreach ($options_rtl as $option) {
                     QuestionOption::create([
                         'translation_id' => $rtl->id,
@@ -926,7 +921,8 @@ class PaperSystemController extends Controller
      * @param $question
      * @return \Illuminate\Http\JsonResponse
      */
-    private function __addMathMCQQuestion($params, $question) {
+    private function __addMathMCQQuestion($params, $question)
+    {
 
         if (!empty($params['question_en'])) {
             $params['question_en'] = Helper::mapMathSymbolsTolaTeX($params['question_en']);
@@ -997,7 +993,7 @@ class PaperSystemController extends Controller
             ]);
         }
 
-        if (empty($options_column_a) AND empty($options_column_b)) {
+        if (empty($options_column_a) and empty($options_column_b)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Column A and Column B, both cannot be empty'
@@ -1051,7 +1047,7 @@ class PaperSystemController extends Controller
         /**
          * if english question options are present but its statement is missing
          */
-        if (empty($question_en) AND empty($question_rtl)) {
+        if (empty($question_en) and empty($question_rtl)) {
             return response()->json([
                 'status' => false,
                 'message' => 'English or Urdu question, both cannot be empty!',
@@ -1122,7 +1118,7 @@ class PaperSystemController extends Controller
         /**
          * if english question options are present but its statement is missing
          */
-        if (empty($question_en) AND empty($question_rtl)) {
+        if (empty($question_en) and empty($question_rtl)) {
             return response()->json([
                 'status' => false,
                 'message' => 'English or Urdu question, both cannot be empty!',
@@ -1242,7 +1238,7 @@ class PaperSystemController extends Controller
 
     public function removeAClass(Request $request)
     {
-        if (!$request->has('id') OR !$request->has('syllabus_type_id')) {
+        if (!$request->has('id') or !$request->has('syllabus_type_id')) {
             return response()->json([
                 'status' => false,
                 'message' => 'Something went wrong',
@@ -1286,7 +1282,7 @@ class PaperSystemController extends Controller
 
     public function removeASubject(Request $request)
     {
-        if (!$request->has('id') OR !$request->has('class_id')) {
+        if (!$request->has('id') or !$request->has('class_id')) {
             return response()->json([
                 'status' => false,
                 'message' => 'Something went wrong',
@@ -1325,7 +1321,7 @@ class PaperSystemController extends Controller
 
     public function removeASection(Request $request)
     {
-        if (!$request->has('id') OR !$request->has('section_id')) {
+        if (!$request->has('id') or !$request->has('section_id')) {
             return response()->json([
                 'status' => false,
                 'message' => 'Something went wrong',
@@ -1363,7 +1359,7 @@ class PaperSystemController extends Controller
 
     public function removeATopic(Request $request)
     {
-        if (!$request->has('id') OR !$request->has('topic_id')) {
+        if (!$request->has('id') or !$request->has('topic_id')) {
             return response()->json([
                 'status' => false,
                 'message' => 'Something went wrong',
@@ -1430,7 +1426,7 @@ class PaperSystemController extends Controller
 
     public function searchQuestions(Request $request)
     {
-        if(empty($request->all())) {
+        if (empty($request->all())) {
             return response()->json([
                 'status' => false,
                 'message' => '',
@@ -1465,14 +1461,14 @@ class PaperSystemController extends Controller
                 $questions = $questions->whereIn('section_id', $sections_ids);
             }
 
-            if (empty($sections_ids) AND !empty($topic_ids)) {
+            if (empty($sections_ids) and !empty($topic_ids)) {
                 if (!is_array($topic_ids))
                     $topic_ids = explode(',', $topic_ids);
                 $questions = $questions->whereIn('topic_id', $topic_ids);
             }
 
             $questions = $questions->where('is_active', 1)
-                ->with(['translations' => function($query) use ($medium) {
+                ->with(['translations' => function ($query) use ($medium) {
                     if ($medium == 'urdu') {
                         return $query->where('locale', 'ur')
                             ->orderBy('id', 'DESC');
@@ -1489,7 +1485,7 @@ class PaperSystemController extends Controller
             if ($limit != -1)
                 $questions = $questions->limit($limit);
 
-//            dd(Helper::getSqlWithBindings($questions));
+            //            dd(Helper::getSqlWithBindings($questions));
             $questions = $questions->orderBy('id', 'DESC')->get();
             $question_by_types[$name] = [
                 'title' => $type_title,
@@ -1522,25 +1518,25 @@ class PaperSystemController extends Controller
 
         $result = new PreviousPapers();
 
-        if($publisher_id !== 0)
+        if ($publisher_id !== 0)
             $result = $result->where('publisher_id', $publisher_id);
 
-        if($class_id !== 0)
+        if ($class_id !== 0)
             $result = $result->where('class_id', $class_id);
 
-        if($subject_id !== 0)
+        if ($subject_id !== 0)
             $result = $result->where('subject_id', $subject_id);
 
-        if(!empty($chapter_id)) {
+        if (!empty($chapter_id)) {
             $result = $result->where('chapter', $chapter_id);
         }
 
         $result = $result->get();
         $files = [];
         if ($result->isNotEmpty()) {
-            foreach($result as $r) {
+            foreach ($result as $r) {
                 $fs = $r->files;
-                if(!empty($fs)) {
+                if (!empty($fs)) {
                     foreach ($fs as $f)
                         $files[] = $f;
                 }
@@ -1563,16 +1559,16 @@ class PaperSystemController extends Controller
         $user_id = Helper::easyDecode($request->post('__u'));
 
         $result = SavedPapers::select('id', 'name', 'title', 'section_ids', 'topic_ids', 'paper_date', 'paper_time');
-        if($publisher_id !== 0)
+        if ($publisher_id !== 0)
             $result = $result->where('publisher_id', $publisher_id);
 
-        if($class_id !== 0)
+        if ($class_id !== 0)
             $result = $result->where('class_id', $class_id);
 
-        if($subject_id !== 0)
+        if ($subject_id !== 0)
             $result = $result->where('subject_id', $subject_id);
 
-        if(!empty($title))
+        if (!empty($title))
             $result = $result->where('name', 'LIKE', "%{$title}%");
 
         $result = $result
@@ -1580,8 +1576,8 @@ class PaperSystemController extends Controller
             ->orderBy('paper_date', 'ASC')->get();
 
         if ($result->isNotEmpty()) {
-            foreach($result as &$r) {
-                if(empty($r->section_ids))
+            foreach ($result as &$r) {
+                if (empty($r->section_ids))
                     $r->section_ids = $r->topic_ids;
 
                 $r->sections = Sections::select('name', 'rtl_name')->whereIn('id', explode(',', $r->section_ids))->get();
@@ -1603,7 +1599,7 @@ class PaperSystemController extends Controller
         $subject_id = Helper::checkIdZero($request->post('subject_id'));
         $chapter_id = $request->post('chapter_id');
 
-        if($publisher_id === 0 OR $class_id === 0 OR $subject_id === 0 OR empty($chapter_id)) {
+        if ($publisher_id === 0 or $class_id === 0 or $subject_id === 0 or empty($chapter_id)) {
             return response()->json([]);
         }
 
@@ -1816,13 +1812,13 @@ class PaperSystemController extends Controller
         $subject = Subject::find($subject_id);
 
         $name = [];
-        if(!empty($subject)) {
+        if (!empty($subject)) {
             $name[] = $subject->name;
             $paper_code = $subject->code;
         }
-        if(!empty($class)) {
+        if (!empty($class)) {
             $name[] = $class->name;
-            $paper_code .= '-' .$class->level;
+            $paper_code .= '-' . $class->level;
         }
         $name[] = '(DRAFT)';
         $name = implode(', ', $name);
@@ -1839,12 +1835,13 @@ class PaperSystemController extends Controller
         $paper->save();
 
         $index = $paper->questions->count();
-        $paper->questions()->create([
+        $questions = $paper->questions()->create([
             'search_results' => $search_results,
             'questions' => $selected_question,
             'index' => $index
         ]);
 
+        $paper->index = $questions->id;
         return response()->json($paper);
     }
 
@@ -1857,9 +1854,9 @@ class PaperSystemController extends Controller
         $topic_ids = $request->post('topic_ids');
         $id = Helper::checkIdZero($request->post('__i'));
 
-        if($id !== 0) {
+        if ($id !== 0) {
             $paper = SavedPapers::where('id', $id)
-                ->with(['questions' => function($query) {
+                ->with(['questions' => function ($query) {
                     return $query->orderBy('index', 'ASC');
                 }])
                 ->first();
@@ -1877,13 +1874,13 @@ class PaperSystemController extends Controller
         }
         $questions = [];
         $payload = [];
-        if(!empty($paper)) {
+        if (!empty($paper)) {
             $payload = $paper->toArray();
             $payload['subject'] = Subject::select('id', 'code', 'name')->where('id', $paper['subject_id'])->first();
             $payload['current_class'] = Classes::select('id', 'name')->where('id', $paper['class_id'])->first();
         }
 
-        if($paper->questions->isNotEmpty()) {
+        if ($paper->questions->isNotEmpty()) {
             foreach ($paper['questions'] as $i => $question) {
                 $q = json_decode($question['questions'], true);
                 $q['id'] = $question['id'];
@@ -1907,26 +1904,26 @@ class PaperSystemController extends Controller
         $id = Helper::checkIdZero($request->post('__i'));
         $answers = [];
         $paper = SavedPapers::where('id', $id)
-            ->with(['questions' => function($query) {
+            ->with(['questions' => function ($query) {
                 return $query->orderBy('index', 'ASC');
             }])
             ->first();
 
         $answerA = ['A', 'B', 'C', 'D'];
-        if($paper->questions->isNotEmpty()) {
-            foreach($paper->questions as $i => $question) {
+        if ($paper->questions->isNotEmpty()) {
+            foreach ($paper->questions as $i => $question) {
                 $questions = json_decode($question->questions, true);
                 $key = $questions['form_type'];
-                if(!in_array($key, ['mcq', 'banks', 'true_false'])) continue;
+                if (!in_array($key, ['mcq', 'banks', 'true_false'])) continue;
 
                 $title = $questions['title'];
                 $questions = $questions['questions'];
-                if(!empty($questions)) {
-                    foreach($questions as $q) {
+                if (!empty($questions)) {
+                    foreach ($questions as $q) {
                         $iindex = rand(0, 3);
                         $model = QuestionTranslation::select('correct_answer')->where('question_id', $q['id'])->first();
                         // just a testing code
-                        if(!empty($model) AND empty($model->correct_answer)) {
+                        if (!empty($model) and empty($model->correct_answer)) {
                             $model->correct_answer = $answerA[$iindex];
                             $model->save();
                         }
@@ -1960,9 +1957,9 @@ class PaperSystemController extends Controller
         ])->first();
 
         $payload = [];
-        if(!empty($paper)) {
+        if (!empty($paper)) {
             $paper->questions()->where('id', $index)->delete();
-            if($index) {
+            if ($index) {
                 $total = (int)$paper->total_marks;
                 $total -= $marks;
                 $paper->total_marks = $total;
@@ -1979,18 +1976,19 @@ class PaperSystemController extends Controller
         ]);
     }
 
-    public function savePaper(Request $request) {
+    public function savePaper(Request $request)
+    {
         $response = [
             'status' => false,
             'message' =>  'Success',
             'data' => false
         ];
 
-        if(!$request->has('id'))
+        if (!$request->has('id'))
             return response()->json($response);
 
         $paper = SavedPapers::find(Helper::easyDecode($request->post('id')));
-        if(empty($paper))
+        if (empty($paper))
             return response()->json($response);
 
         $name = $request->get('paper_name');
@@ -2009,7 +2007,7 @@ class PaperSystemController extends Controller
         $paper->paper_date = empty($request->post('paper_date')) ? date('Y-m-d') : str_replace('(Pakistan Standard Time)', '', $request->post('paper_date'));
         $paper->paper_time = empty($request->post('paper_time')) ? '' : $request->post('paper_time');
         $paper->total_marks = empty($request->post('total_marks')) ? 0 : $request->post('total_marks');;
-        $paper->blank_lines = empty($request->post('blank_lines')) OR $request->post('blank_lines') === "null" ? 0 : $request->post('blank_lines');
+        $paper->blank_lines = empty($request->post('blank_lines')) or $request->post('blank_lines') === "null" ? 0 : $request->post('blank_lines');
         $paper->is_saved = 1;
         $paper->save();
 
@@ -2025,26 +2023,27 @@ class PaperSystemController extends Controller
 
         $id = Helper::easyDecode($request->post('id'));
         $item = SavedPapers::find($id);
-        if($item)
+        if ($item)
             $item->delete();
 
         return response()->json($item);
     }
 
-    public function markAsCorrectOption(Request $request) {
+    public function markAsCorrectOption(Request $request)
+    {
         $response = [
             'status' => false,
             'message' => 'Something went wrong, please try again later!',
             'data' => []
         ];
 
-        if(!$request->has('id') OR !$request->has('correct_answer')) {
+        if (!$request->has('id') or !$request->has('correct_answer')) {
             return $response;
         }
 
         $id = Helper::easyDecode($request->get('id'));
         $question_t = QuestionTranslation::where('question_id', $id)->first();
-        if(empty($question_t))
+        if (empty($question_t))
             return $response;
 
         $question_t->correct_answer = $request->get('correct_answer');
