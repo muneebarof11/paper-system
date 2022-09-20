@@ -57,8 +57,6 @@ class PRTLMCQ extends Component {
             this.props.updateSelectedQuestions(formData);
             this.setState({ q });
             return false;
-        } else {
-            console.log("not found", hasSelectedAlready.length);
         }
 
         if (
@@ -89,9 +87,9 @@ class PRTLMCQ extends Component {
     render() {
         let q = this.state.q;
         let number = this.state.number;
-
         return (
             <div
+                id={`q-${q.id}`}
                 className={`mt-2 mb-2 col-sm-12 px-0 py-2 ${
                     q.checked ? "selected_question" : ""
                 } question_row mcq-question`}

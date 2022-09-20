@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import {removeQuestion, updateSelectedQuestions} from "../../../redux/Actions";
-import {connect} from "react-redux";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { updateSelectedQuestions } from "../../../redux/Actions";
 
 class PImageQuestion extends Component {
-
     constructor(props) {
         super(props);
 
@@ -11,12 +10,12 @@ class PImageQuestion extends Component {
             q: {
                 id: 0,
                 en: {
-                    statement: '',
-                    image: ''
+                    statement: "",
+                    image: ""
                 },
                 rtl: {
-                    statement: '',
-                    image: ''
+                    statement: "",
+                    image: ""
                 }
             },
             number: 0
@@ -31,17 +30,21 @@ class PImageQuestion extends Component {
     }
 
     updateSelectedQuestions() {
-        const key =  this.props.type;
+        const key = this.props.type;
 
-        if(this.props.only_display) {
+        if (this.props.only_display) {
             return false;
         }
 
-        if(this.props.selected_question.length > 0) {
-            const question_info = this.props.selected_question.find(sq => sq.key == key);
-            const questions_count = question_info.questions ? question_info.questions.length : 0;
+        if (this.props.selected_question.length > 0) {
+            const question_info = this.props.selected_question.find(
+                sq => sq.key == key
+            );
+            const questions_count = question_info.questions
+                ? question_info.questions.length
+                : 0;
             const allowed = this.props.total_allowed;
-            if(questions_count >= allowed && !this.state.q.checked) {
+            if (questions_count >= allowed && !this.state.q.checked) {
                 alert(`You can select maximum ${allowed} questions`);
                 return false;
             }
@@ -64,7 +67,7 @@ class PImageQuestion extends Component {
             ...this.state.q,
             checked: checked
         };
-        this.setState({q})
+        this.setState({ q });
     }
 
     render() {
@@ -72,36 +75,45 @@ class PImageQuestion extends Component {
         let number = this.state.number;
 
         return (
-            <div className={`mt-2 mb-2 col-sm-12 px-0 py-2 ${q.checked ? 'selected_question' : ''} question_row`} onClick={this.updateSelectedQuestions}>
+            <div
+                className={`mt-2 mb-2 col-sm-12 px-0 py-2 ${
+                    q.checked ? "selected_question" : ""
+                } question_row`}
+                onClick={this.updateSelectedQuestions}
+            >
                 <div className="col-lg-6">
                     <div className="row">
                         <h5 className="mb-2 col-lg-12">
                             {number}) {q.en.statement}
                         </h5>
                         <div className="image-container col-lg-12">
-                            <img src={$helper.getImageBasePath() + q.en.image} className="img-fluid" alt={q.en.statement} />
+                            <img
+                                src={$helper.getImageBasePath() + q.en.image}
+                                className="img-fluid"
+                                alt={q.en.statement}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 
     prepareQuestionData() {
         let question = this.props.question;
         let number = this.props.number;
-        if(question.length <= 0) return false;
-        if(typeof question.translations === typeof undefined) return false;
+        if (question.length <= 0) return false;
+        if (typeof question.translations === typeof undefined) return false;
 
         let q = this.state.q;
-        let i = 0, j = 1;
-        let t = question.translations.find(q => q.locale === 'en');
-        if(typeof t === typeof undefined) return false;
-        if(typeof t.question_statement === typeof undefined) return false;
+        let i = 0,
+            j = 1;
+        let t = question.translations.find(q => q.locale === "en");
+        if (typeof t === typeof undefined) return false;
+        if (typeof t.question_statement === typeof undefined) return false;
 
         // check its only urdu
-        debugger;
-        if($helper.checkUTF8(t.question_statement)) {
+        if ($helper.checkUTF8(t.question_statement)) {
             q.rtl.statement = t.question_statement;
         } else {
             q.en.statement = t.question_statement;
@@ -114,26 +126,27 @@ class PImageQuestion extends Component {
          * loop through other language statement only if it exists
          * English, Urdu & Isl (or some other) will not have this index
          */
-        t = question.translations.find(q => q.locale === 'ur');
+        t = question.translations.find(q => q.locale === "ur");
         if (typeof t !== typeof undefined) {
             q.rtl.statement = t.question_statement;
             q.rtl.image = t.question_image;
         }
 
-        this.setState({q: q, number: number})
+        this.setState({ q: q, number: number });
     }
 }
 
 const mapStateToProps = state => {
     return {
         selected_question: state.questions.selected_question
-    }
+    };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateSelectedQuestions: (formData) => dispatch(updateSelectedQuestions(dispatch, formData))
-    }
+        updateSelectedQuestions: formData =>
+            dispatch(updateSelectedQuestions(dispatch, formData))
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PImageQuestion);

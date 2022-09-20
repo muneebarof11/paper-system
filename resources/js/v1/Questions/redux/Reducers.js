@@ -304,7 +304,6 @@ const questionsReducer = (state = initialState, action) => {
             confirmed_questions.push(selected_question[0]);
             let info = action.info;
             info["table_mcq"] = 0;
-            debugger;
             return {
                 ...state,
                 loading: false,
@@ -366,16 +365,18 @@ const questionsReducer = (state = initialState, action) => {
         case Type.CLEAR_SELECTION:
             return {
                 ...state,
+                loading: false,
                 selected_question: []
             };
         case Type.EDIT_QUESTION_SECTION:
             let search_results = action.params.search_results;
-            debugger;
+
             let key = mapQuestionType(action.params.key);
             search_results[key]["edit"] = true;
 
             return {
                 ...state,
+                // loading: false,
                 search_results: search_results,
                 selected_question: action.params.selected_questions
             };
@@ -393,6 +394,9 @@ const questionsReducer = (state = initialState, action) => {
 function mapQuestionType(name) {
     switch (name) {
         case "mcq":
+            name = "mcqs";
+            break;
+        case "mcqs":
             name = "mcqs";
             break;
         case "general":

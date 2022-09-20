@@ -291,7 +291,12 @@ class PQuestions extends Component {
         this.props.searchQuestions(formData);
     }
 
-    removeSavedQuestionSection(index, marks) {
+    removeSavedQuestionSection(index, marks, dontAskConfirmation) {
+        if (dontAskConfirmation !== true) {
+            const shouldDelete = window.confirm("Are you sure?");
+            if (!shouldDelete) return false;
+        }
+
         const formData = new FormData();
         formData.append("publisher_id", syllabus_type_id);
         formData.append("class_id", class_id);
@@ -300,7 +305,6 @@ class PQuestions extends Component {
         formData.append("topic_ids", this.state.topic_ids);
         formData.append("index", index);
         formData.append("marks", marks);
-        debugger;
         this.props.removeSavedQuestionSection(formData);
         if (index) {
             let total_marks = parseInt(this.state.total_marks);
@@ -309,19 +313,21 @@ class PQuestions extends Component {
         }
     }
 
-    editSavedQuestionSection(index, obj) {
+    editSavedQuestionSection(index, obj, marks) {
         const sectionToEdit = this.props.confirmed_questions[index];
         let selected_questions = {
             ...obj,
             questions: sectionToEdit.questions
         };
         delete selected_questions["search_results"];
-        const params = {
-            search_results: sectionToEdit.search_results,
+        const key = sectionToEdit.key;
+        let params = {
+            search_results: JSON.parse(this.props.info.search_results),
             selected_questions: [selected_questions],
             key: sectionToEdit.key,
             ...obj
         };
+        this.removeSavedQuestionSection(this.props.info.index, marks, true);
         this.props.editQuestionSection(params);
         $(".fa-pencil").click(function() {
             $("html, body").animate(
@@ -331,6 +337,21 @@ class PQuestions extends Component {
                 1000
             );
         });
+
+        setTimeout(() => {
+            params.questions.forEach(question => {
+                const element = document.getElementById(`q-${question.id}`);
+                element.classList.add("selected_question");
+            });
+
+            var firstSelectedQuestion = document.getElementById(
+                `q-${params.questions[0].id}`
+            );
+            var topPos = firstSelectedQuestion.offsetTop;
+            document.getElementsByClassName(
+                "search-result"
+            )[0].scrollTop = topPos;
+        }, 0);
     }
 
     randomSelect(totalItems) {
@@ -928,7 +949,6 @@ class PQuestions extends Component {
             this.props.subject.medium === "urdu" ? false : true;
         const d_rtl_question_title =
             this.props.subject.medium === "eng" ? false : true;
-        debugger;
         return (
             <div className="question_title_row pt-3 col-lg-12 row">
                 <div
@@ -942,7 +962,7 @@ class PQuestions extends Component {
                     </h4>
                 </div>
                 <div className="col-lg-4 text-center">
-                    {this.editBtn(i, obj)}
+                    {this.editBtn(i, obj, info.marks)}
                     {this.removeBtn(
                         obj.id || this.props.info.index,
                         info.marks
@@ -977,9 +997,9 @@ class PQuestions extends Component {
     }
 
     removeBtn(index, marks) {
-        debugger;
         return (
             <i
+                id={`remove-${index}`}
                 className="fa fa-trash btn-danger"
                 onClick={() => this.removeSavedQuestionSection(index, marks)}
             >
@@ -988,11 +1008,12 @@ class PQuestions extends Component {
         );
     }
 
-    editBtn(index, marks) {
+    editBtn(index, obj, marks) {
         return (
             <i
+                id={`edit-${index}`}
                 className="fa fa-pencil btn-danger"
-                onClick={() => this.editSavedQuestionSection(index, marks)}
+                onClick={() => this.editSavedQuestionSection(index, obj, marks)}
             >
                 &nbsp;
             </i>

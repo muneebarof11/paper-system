@@ -1842,6 +1842,7 @@ class PaperSystemController extends Controller
         ]);
 
         $paper->index = $questions->id;
+        $paper->search_results = $request->post('search_results');
         return response()->json($paper);
     }
 
