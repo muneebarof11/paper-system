@@ -288,6 +288,7 @@ class PQuestions extends Component {
 
         formData.append("limit", -1);
 
+        this.setState({ medium: data.medium });
         this.props.searchQuestions(formData);
     }
 

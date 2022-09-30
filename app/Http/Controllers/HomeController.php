@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-//        Auth::loginUsingId(3);
+        //        Auth::loginUsingId(3);
         $this->middleware('auth')->except(['home']);
         $this->middleware('institute');
     }
@@ -38,13 +38,13 @@ class HomeController extends Controller
         $data = Institute::find($user->institute_id);
 
         $roles = Auth::user()->roles;
-        if(empty($roles)) {
+        if (empty($roles)) {
             return redirect('access-denied');
         }
 
         $role_names = $roles->pluck('name')->toArray();
 
-        if(!in_array('super', $role_names)) {
+        if (!in_array('super', $role_names)) {
             return redirect('access-denied');
         }
 
@@ -58,17 +58,17 @@ class HomeController extends Controller
         $data = Institute::find($user->institute_id);
 
         $roles = Auth::user()->roles;
-        if(empty($roles)) {
+        if (empty($roles)) {
             return redirect('access-denied');
         }
 
         $role_names = $roles->pluck('name')->toArray();
 
-        if(!in_array('super', $role_names)) {
+        if (!in_array('super', $role_names)) {
             return redirect('access-denied');
         }
 
-        return view('react.'.$uri, ['data' => $data, 'user' => $user]);
+        return view('react.' . $uri, ['data' => $data, 'user' => $user]);
     }
 
     public function publishers(Request $request)
@@ -77,15 +77,15 @@ class HomeController extends Controller
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
         $publishers = SyllabusType::all()->toArray();
-        return view('react.'.$uri, ['data' => $data, 'user' => $user, 'publishers' => $publishers]);
+        return view('react.' . $uri, ['data' => $data, 'user' => $user, 'publishers' => $publishers]);
     }
 
     public function classes(Request $request)
     {
-        if(!$request->has('stid')) return redirect('/dashboard');
+        if (!$request->has('stid')) return redirect('/dashboard');
 
         $uri = $request->path();
-        if(Helper::checkUserRole('teacher', false)) {
+        if (Helper::checkUserRole('teacher', false)) {
             $uri = (str_replace('School', 'Papers', $uri));
         }
 
@@ -97,7 +97,7 @@ class HomeController extends Controller
 
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
-        return view('react.'.$uri, [
+        return view('react.' . $uri, [
             'data' => $data,
             'user' => $user,
             'classes' => !empty($classes_by_publisher) ? $classes_by_publisher['classes'] : [],
@@ -108,11 +108,11 @@ class HomeController extends Controller
 
     public function subjects(Request $request)
     {
-        if(!$request->has('stid')) return redirect('/dashboard');
-        if(!$request->has('cid')) return redirect('/dashboard');
+        if (!$request->has('stid')) return redirect('/dashboard');
+        if (!$request->has('cid')) return redirect('/dashboard');
 
         $uri = $request->path();
-        if(Helper::checkUserRole('teacher', false)) {
+        if (Helper::checkUserRole('teacher', false)) {
             $uri = (str_replace('School', 'Papers', $uri));
         }
 
@@ -128,7 +128,7 @@ class HomeController extends Controller
 
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
-        return view('react.'.$uri, [
+        return view('react.' . $uri, [
             'data' => $data,
             'user' => $user,
             'subjects' => !empty($subjects_by_class) ? $subjects_by_class['subjects'] : [],
@@ -139,12 +139,12 @@ class HomeController extends Controller
 
     public function sections(Request $request)
     {
-        if(!$request->has('stid')) return redirect('/dashboard');
-        if(!$request->has('cid')) return redirect('/dashboard');
-        if(!$request->has('suid')) return redirect('/dashboard');
+        if (!$request->has('stid')) return redirect('/dashboard');
+        if (!$request->has('cid')) return redirect('/dashboard');
+        if (!$request->has('suid')) return redirect('/dashboard');
 
         $uri = $request->path();
-        if(Helper::checkUserRole('teacher', false)) {
+        if (Helper::checkUserRole('teacher', false)) {
             $uri = (str_replace('School', 'Papers', $uri));
         }
 
@@ -162,7 +162,7 @@ class HomeController extends Controller
         $subject_sections = $api->getSubjectSections($request)->getData(true);
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
-        return view('react.'.$uri, [
+        return view('react.' . $uri, [
             'data' => $data,
             'user' => $user,
             'subject_sections' => $subject_sections,
@@ -173,12 +173,12 @@ class HomeController extends Controller
 
     public function questions(Request $request)
     {
-        if(!$request->has('stid')) return redirect('/dashboard');
-        if(!$request->has('cid')) return redirect('/dashboard');
-        if(!$request->has('suid')) return redirect('/dashboard');
+        if (!$request->has('stid')) return redirect('/dashboard');
+        if (!$request->has('cid')) return redirect('/dashboard');
+        if (!$request->has('suid')) return redirect('/dashboard');
 
         $uri = $request->path();
-        if(Helper::checkUserRole('teacher', false)) {
+        if (Helper::checkUserRole('teacher', false)) {
             $uri = (str_replace('School', 'Papers', $uri));
         }
 
@@ -201,14 +201,14 @@ class HomeController extends Controller
         $question_types = $api->getQuestionTypes($request)->getData(true);
         $questions = $api->getQuestionsByClassSubjects($request)->getData(true);
         $question_types_with_questions = [];
-        for($i=0; $i < count($question_types); $i++) {
+        for ($i = 0; $i < count($question_types); $i++) {
             $question_types_with_questions[$question_types[$i]['name']] = ['data' => $questions[$i]['questions']];
         }
 
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
         $sections = $api->getSubjectSections($request)->getData(true);
-        return view('react.'.$uri, [
+        return view('react.' . $uri, [
             'data' => $data,
             'user' => $user,
             'question_types' => $question_types,
@@ -227,7 +227,7 @@ class HomeController extends Controller
         $data = Institute::find($user->institute_id);
 
         $roles = Auth::user()->roles;
-        if($roles->isEmpty()) {
+        if ($roles->isEmpty()) {
             return redirect('access-denied');
         }
 
@@ -238,7 +238,7 @@ class HomeController extends Controller
         // }
 
         $publishers = SyllabusType::all()->toArray();
-        return view('react.'.$uri, ['data' => $data, 'user' => $user, 'publishers' => $publishers]);
+        return view('react.' . $uri, ['data' => $data, 'user' => $user, 'publishers' => $publishers]);
     }
 
     public function papers()
@@ -252,7 +252,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $roles = Auth::user()->roles;
-        if(empty($roles)) {
+        if (empty($roles)) {
             return redirect('access-denied');
         }
 
@@ -271,13 +271,14 @@ class HomeController extends Controller
         return redirect('/dashboard');
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
 
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
 
         $roles = Auth::user()->roles;
-        if(empty($roles)) {
+        if (empty($roles)) {
             return redirect('logout');
         }
 
@@ -292,13 +293,15 @@ class HomeController extends Controller
         return view('school.dashboard', ['data' => $data, 'user' => $user, 'roles' => $role_names, 'stats' => $stats]);
     }
 
-    public function accesDenied() {
+    public function accesDenied()
+    {
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
         return view('auth.acces-denied', ['data' => $data, 'user' => $user]);
     }
 
-    public function stats() {
+    public function stats()
+    {
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
 
@@ -316,7 +319,8 @@ class HomeController extends Controller
         ]);
     }
 
-    public function publisher() {
+    public function publisher()
+    {
         return '';
     }
 }

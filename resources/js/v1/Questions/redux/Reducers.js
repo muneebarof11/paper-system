@@ -209,13 +209,15 @@ const questionsReducer = (state = initialState, action) => {
                 payload = [];
             }
             questions_info["table_mcq"] = 0;
+            const subject = { ...questions_info.subject };
+            subject.medium = questions_info.medium;
             return {
                 ...state,
                 loading: false,
                 confirmed_questions: payload,
                 confirmed_questions_info: questions_info,
                 current_class: questions_info.current_class,
-                subject: questions_info.subject
+                subject: subject
             };
         case Type.FETCH_ALL_QUESTION_TYPE_RESPONSE:
             payload =

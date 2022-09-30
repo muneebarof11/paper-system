@@ -19,15 +19,32 @@ class PRTLMCQ extends Component {
                     options: []
                 }
             },
-            number: 0
+            number: 0,
+            changes: {
+                statement: "",
+                options: {}
+            }
         };
 
+        this.contentEditable = React.createRef();
         this.prepareMcqQuestionData = this.prepareMcqQuestionData.bind(this);
         this.updateSelectedQuestions = this.updateSelectedQuestions.bind(this);
     }
 
     componentDidMount() {
         this.prepareMcqQuestionData();
+    }
+
+    handleQuestionUpdate(key, value) {
+        const changes = this.state.changes;
+        changes[key] = value;
+        this.setState(changes);
+    }
+
+    handleOptionUpdate(key, value) {
+        const changes = this.state.changes;
+        changes.options[key] = value;
+        this.setState(changes);
     }
 
     updateSelectedQuestions(event) {
@@ -84,12 +101,23 @@ class PRTLMCQ extends Component {
         this.setState({ q });
     }
 
+    updateQuestionStatementOnEnter(question, e) {
+        if (e.key === "Enter" || e.keyCode === 13) {
+            this.updateQuestionStatement(question);
+        }
+    }
+
+    updateQuestionStatement(question) {
+        this.props.updateQuestionStatement(question, this.state.changes);
+    }
+
     render() {
         let q = this.state.q;
         let number = this.state.number;
         return (
             <div
                 id={`q-${q.id}`}
+                key={q.id}
                 className={`mt-2 mb-2 col-sm-12 px-0 py-2 ${
                     q.checked ? "selected_question" : ""
                 } question_row mcq-question`}
@@ -104,13 +132,17 @@ class PRTLMCQ extends Component {
                         className="mb-2 text-right"
                         style={{ fontSize: this.props.questionFontSize }}
                     >
-                        {number})&nbsp;{q.rtl.statement}
+                        {number})&nbsp;
+                        {q.rtl.statement}
                     </h4>
                     <div className="row mx-0">
                         {q.rtl.options.length > 0 ? (
                             q.rtl.options.map((o, i) => {
                                 return (
                                     <div
+                                        id={`option-${
+                                            q.id
+                                        }-${$helper.getAlphabet(i)}`}
                                         className={`col-sm-3 urdu-font text-right`}
                                         style={{
                                             fontSize: this.props.optionsFontSize
