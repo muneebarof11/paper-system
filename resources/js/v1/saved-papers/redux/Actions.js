@@ -1,16 +1,15 @@
 import {
-    REQUEST_INIT,
     FETCH_CLASSES_RESPONSE,
     FETCH_SUBJECTS_RESPONSE,
+    REQUEST_INIT,
     SAVED_SEARCH_RESPONSE
 } from "./Types";
-import {uploadPaperResponse} from "../../pre-defined-papers/redux/Actions";
 
-export const requestInit  = () => {
+export const requestInit = () => {
     return {
         type: REQUEST_INIT,
-        message: ''
-    }
+        message: ""
+    };
 };
 
 const response_obj = (action_type, response) => {
@@ -18,7 +17,7 @@ const response_obj = (action_type, response) => {
         type: action_type,
         payload: response.data,
         message: response.message
-    }
+    };
 };
 
 export const fetchClassesResponse = response => {
@@ -26,16 +25,17 @@ export const fetchClassesResponse = response => {
 };
 
 export const fetchClassesByPublisherId = (dispatch, publisher_id) => {
-    return (dispatch) => {
+    return dispatch => {
         $api.getData(`get-classes-by-syllabus-types/${publisher_id}`)
             .then(res => {
-                const data = {data: res.classes, message: ''};
-                dispatch(fetchClassesResponse(data))
-            }).catch(error => {
-            const data = {data: [], message: 'Error: ' + error.exception};
-            dispatch(fetchClassesResponse(data));
-        })
-    }
+                const data = { data: res.classes, message: "" };
+                dispatch(fetchClassesResponse(data));
+            })
+            .catch(error => {
+                const data = { data: [], message: "Error: " + error.exception };
+                dispatch(fetchClassesResponse(data));
+            });
+    };
 };
 
 export const fetchSubjectsResponse = response => {
@@ -43,16 +43,17 @@ export const fetchSubjectsResponse = response => {
 };
 
 export const fetchSubjectsByClassId = (dispatch, publisher_id, class_id) => {
-    return (dispatch) => {
+    return dispatch => {
         $api.getData(`get-subjects-by-class/${class_id}/${publisher_id}`)
             .then(res => {
-                const data = {data: res.subjects, message: ''};
-                dispatch(fetchSubjectsResponse(data))
-            }).catch(error => {
-            const data = {data: [], message: 'Error: ' + error};
-            dispatch(fetchSubjectsResponse(data));
-        })
-    }
+                const data = { data: res.subjects, message: "" };
+                dispatch(fetchSubjectsResponse(data));
+            })
+            .catch(error => {
+                const data = { data: [], message: "Error: " + error };
+                dispatch(fetchSubjectsResponse(data));
+            });
+    };
 };
 
 export const searchPaperResponse = response => {
@@ -61,34 +62,35 @@ export const searchPaperResponse = response => {
 
 export const searchPapers = (dispatch, formData, is_saved_papers) => {
     dispatch(requestInit());
-    return (dispatch) => {
+    return dispatch => {
         let endpoint = `search-papers`;
-        if(is_saved_papers)
-            endpoint = `saved-papers`;
+        if (is_saved_papers) endpoint = `saved-papers`;
 
+        formData.append("isDraft", window.__isDraft__);
         $api.postData(endpoint, formData)
             .then(res => {
-                const data = {data: res, message: ''};
-                if(res.length <= 0 ) alert('No result found, start creating new!');
-                dispatch(searchPaperResponse(data))
-            }).catch(error => {
-            const data = {data: [], message: 'Error: ' + error};
-            dispatch(searchPaperResponse(data));
-        })
-    }
+                const data = { data: res, message: "" };
+                // if(res.length <= 0 ) alert('No result found, start creating new!');
+                dispatch(searchPaperResponse(data));
+            })
+            .catch(error => {
+                const data = { data: [], message: "Error: " + error };
+                dispatch(searchPaperResponse(data));
+            });
+    };
 };
 
 export const removeSavedItem = (dispatch, formData) => {
     dispatch(requestInit());
-    return (dispatch) => {
+    return dispatch => {
         $api.postData(`remove-saved-paper`, formData)
             .then(res => {
-                const data = {data: res ? res : [], message: ''};
-                dispatch(searchPapers(dispatch, formData, true))
-            }).catch(error => {
-            const data = {data: [], message: 'Error: ' + error};
-            dispatch(searchPapers(dispatch, formData, true))
-        })
-    }
+                const data = { data: res ? res : [], message: "" };
+                dispatch(searchPapers(dispatch, formData, true));
+            })
+            .catch(error => {
+                const data = { data: [], message: "Error: " + error };
+                dispatch(searchPapers(dispatch, formData, true));
+            });
+    };
 };
-

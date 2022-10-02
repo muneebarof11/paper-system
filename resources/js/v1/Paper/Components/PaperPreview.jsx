@@ -226,9 +226,9 @@ class PaperPreview extends PureComponent {
     }
 
     render() {
-        const paper_code = `${this.props.subject.code}-${this.props.current_class.level}`;
-        let filename = `${this.props.current_class.name}-${this.props.subject.name}-paper.pdf`;
-        filename.replace(" ", "-");
+        // const paper_code = `${this.props.subject.code}-${this.props.current_class.level}`;
+        // let filename = `${this.props.current_class.name}-${this.props.subject.name}-paper.pdf`;
+        // filename.replace(" ", "-");
 
         // setTimeout(() => {
         //     var el = document.getElementsByClassName("mcq-question-section")[0];

@@ -12,6 +12,7 @@
     <script>
         window.__data__ = "{{ base64_encode(json_encode($publishers)) }}";
         window.__user_id__ = "{{ Auth::user()->id }}";
+        window.__isDraft__ = "{{ $isDraft }}"
     </script>
     <script src="{{ asset('jsx/saved-papers.js') }}"></script>
 @endsection()

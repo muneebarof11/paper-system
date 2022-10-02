@@ -76,6 +76,8 @@ const eng_components = {
     general: PEngGeneralQuestion
 };
 
+let childRefs = [];
+
 class PQuestions extends Component {
     constructor(props) {
         super(props);
@@ -342,7 +344,10 @@ class PQuestions extends Component {
         setTimeout(() => {
             params.questions.forEach(question => {
                 const element = document.getElementById(`q-${question.id}`);
-                element.classList.add("selected_question");
+                element.classLis / t.add("selected_question");
+                // $(`q-${question.id}`).trigger("click");
+
+                childRefs[question.id].current.updateSelectedQuestions();
             });
 
             var firstSelectedQuestion = document.getElementById(

@@ -47,7 +47,9 @@ Auth::routes();
 //Route::get('/Papers/{path?}', 'HomeController@papers');
 
 Route::prefix('School')->middleware('institute')->group(function () {
-    Route::get('/', function(){return redirect('/School/publishers');});
+    Route::get('/', function () {
+        return redirect('/School/publishers');
+    });
     Route::get('/publishers', 'HomeController@publishers');
     Route::get('/classes', 'HomeController@classes');
     Route::get('/subjects', 'HomeController@subjects');
@@ -56,8 +58,12 @@ Route::prefix('School')->middleware('institute')->group(function () {
 });
 
 Route::prefix('Papers')->middleware('institute')->group(function () {
-    Route::get('/', function(){return redirect('/Papers/publishers');});
-    Route::get('/create-paper', function(){return redirect('/Papers/publishers');});
+    Route::get('/', function () {
+        return redirect('/Papers/publishers');
+    });
+    Route::get('/create-paper', function () {
+        return redirect('/Papers/publishers');
+    });
     Route::get('/publishers', 'HomeController@publishers');
     Route::get('/classes', 'HomeController@classes');
     Route::get('/subjects', 'HomeController@subjects');
@@ -104,13 +110,12 @@ Route::get('hash', function () {
 //Route::get('admin/publishers', 'SSRController@adminPublishers');
 
 Route::get('test', function () {
-   $q_types = \App\QuestionType::get();
-   foreach($q_types as $type) {
-       $name = \Illuminate\Support\Str::slug($type->title);
-       $type->name = str_replace('-', '_', $name);
-       $type->save();
+    $q_types = \App\QuestionType::get();
+    foreach ($q_types as $type) {
+        $name = \Illuminate\Support\Str::slug($type->title);
+        $type->name = str_replace('-', '_', $name);
+        $type->save();
 
-       echo($type->name) . '<br />';
-
-   }
+        echo ($type->name) . '<br />';
+    }
 });

@@ -6,11 +6,13 @@
             margin-left: 0;
             margin-right: 0;
         }
+
         .form-control.no-validate:valid {
             border-color: #ced4da;
             padding-right: .75rem;
             background-image: none;
         }
+
         .invalid-input-field {
             border-color: #e3342f;
             padding-right: calc(1.6em + 0.75rem);
@@ -19,6 +21,7 @@
             background-position: right calc(0.4em + 0.1875rem) center;
             background-size: calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
         }
+
         .key-invalid-feedback {
             width: 100%;
             margin-top: 0.25rem;
@@ -29,9 +32,9 @@
 @endsection
 
 @section('page_title')
-    <div class="container">
+    <div class="container mt-4">
 
-        <a href="{{URL::to('App')}}">
+        <a href="{{ URL::to('App') }}">
             <button type="button" class="btn btn-primary float-left">Back</button>
         </a>
 
@@ -43,27 +46,30 @@
 
 @section('content')
     <div class="container">
-        <form class="row needs-validation" novalidate action="{{route('App.User.Create')}}" method="POST" enctype="multipart/form-data">
+        <form class="row needs-validation" novalidate action="{{ route('App.User.Create') }}" method="POST"
+            enctype="multipart/form-data">
 
-            {{csrf_field()}}
+            {{ csrf_field() }}
 
             <section class="col-lg-12 col-sm-12">
                 <div class="form-group row">
                     <label class="col-sm-12 col-form-label" for="instName">Name</label>
-                    <input type="text" class="form-control" id="instName" placeholder="Enter Name"
-                           name="name" required value="{{old('name')}}">
+                    <input type="text" class="form-control" id="instName" placeholder="Enter Name" name="name"
+                        required value="{{ old('name') }}">
                     <div class="invalid-feedback">
                         Please enter name!
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-form-label" for="instPhone1">Email</label>
-                    <input type="text" class="form-control" id="instPhone1" name="email" required  value="{{old('email')}}">
+                    <input type="text" class="form-control" id="instPhone1" name="email" required
+                        value="{{ old('email') }}">
                     <div class="invalid-feedback">Email is required</div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-form-label" for="instPhone2">Username</label>
-                    <input type="text" class="form-control" id="instPhone2" name="username" required value="{{old('username')}}">
+                    <input type="text" class="form-control" id="instPhone2" name="username" required
+                        value="{{ old('username') }}">
                     <div class="invalid-feedback">Username is required</div>
                 </div>
                 <div class="form-group row">
@@ -75,7 +81,7 @@
                 <div class="form-group row">
                     <label for="activeStatus">Role</label>
                     <select class="form-control no-validate" id="role" name="role">
-                        @if(\App\Helper::checkUserRole('super', false))
+                        @if (\App\Helper::checkUserRole('super', false))
                             <option value="admin">Admin</option>
                         @endif
                         <option value="teacher" selected>Teacher</option>

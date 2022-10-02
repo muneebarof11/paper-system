@@ -15,11 +15,12 @@
             padding-left: 80px;
             padding-right: 80px;
         }
-
     </style>
 @endsection
 
 @section('page_title')
+    <div class="mt-4"></div>
+
     <a href="{{ URL::to('App') }}">
         <button type="button" class="btn btn-danger float-left">Back</button>
     </a>

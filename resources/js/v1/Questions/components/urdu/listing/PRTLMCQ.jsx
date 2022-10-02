@@ -64,6 +64,10 @@ class PRTLMCQ extends Component {
             checked: checked
         };
 
+        if (this.props.only_display) {
+            return false;
+        }
+
         const hasSelectedAlready = $(event.target).closest(
             ".selected_question"
         );

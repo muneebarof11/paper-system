@@ -28,12 +28,11 @@
             font-size: 80%;
             color: #e3342f;
         }
-
     </style>
 @endsection
 
 @section('page_title')
-    <div class="container">
+    <div class="container mt-4">
 
         Edit: {{ $data->name }}
 
@@ -56,8 +55,8 @@
             <section class="col-lg-6 col-sm-12">
                 <div class="form-group row">
                     <label class="col-sm-12 col-form-label" for="instName">Name</label>
-                    <input type="text" class="form-control" id="instName" placeholder="School / Academy name" name="name"
-                        required value="{{ $data->name }}">
+                    <input type="text" class="form-control" id="instName" placeholder="School / Academy name"
+                        name="name" required value="{{ $data->name }}">
                     <div class="invalid-feedback">
                         Please enter name!
                     </div>
@@ -75,14 +74,12 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-form-label" for="instAddress1">Address 1</label>
-                    <textarea class="form-control" id="instAddress1" rows="3" name="address1"
-                        required>{{ $data->address1 }}</textarea>
+                    <textarea class="form-control" id="instAddress1" rows="3" name="address1" required>{{ $data->address1 }}</textarea>
                     <div class="invalid-feedback">Address is required</div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-12 col-form-label" for="instAddress2">Address 2 (optional)</label>
-                    <textarea class="form-control no-validate" id="instAddress1" rows="3"
-                        name="address2">{{ $data->address2 }}</textarea>
+                    <textarea class="form-control no-validate" id="instAddress1" rows="3" name="address2">{{ $data->address2 }}</textarea>
                 </div>
             </section>
             <section class="col-lg-6 col-sm-12">
@@ -100,7 +97,8 @@
                 <div class="form-group">
                     <label for="secondaryLogo">Secondary Logo</label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input no-validate" id="secondaryLogo" name="secondary_logo">
+                        <input type="file" class="custom-file-input no-validate" id="secondaryLogo"
+                            name="secondary_logo">
                         <label class="custom-file-label" for="secondaryLogo">Choose file...</label>
                         <small class="form-text text-muted">Required only if logo position is selected as Double</small>
                     </div>
@@ -123,7 +121,7 @@
 @endsection()
 
 <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 @section('script')
     <script>
         let someform = $('#someform');

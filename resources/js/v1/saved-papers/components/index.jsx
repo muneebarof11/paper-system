@@ -1,4 +1,4 @@
-import React, { Component, lazy, PureComponent } from "react";
+import React, { lazy, PureComponent } from "react";
 import { connect } from "react-redux";
 import { fetchPublishers } from "../../publishers/redux/Actions";
 import {
@@ -87,244 +87,261 @@ class SavedPapers extends PureComponent {
     render() {
         return (
             <React.Fragment>
-                <h3>Saved Papers</h3>
-                <hr />
+                <section className="container-fluid">
+                    <h3 className="pt-3">Saved Papers</h3>
+                    <hr />
 
-                <div className="row mb-4">
-                    <div className="form-group col-lg-3">
-                        <label
-                            className="col-sm-12 col-form-label"
-                            htmlFor="medium"
-                        >
-                            Publishers:
-                        </label>
-                        <select
-                            className="custom-select"
-                            name="medium"
-                            id="publishers"
-                            onChange={this.fetchClasses}
-                        >
-                            <option value="">-Select-</option>
-                            {this.props.publishers &&
-                            this.props.publishers.length > 0 ? (
-                                this.props.publishers.map(p => {
-                                    return (
-                                        <option value={p.id}>{p.name}</option>
-                                    );
-                                })
-                            ) : (
-                                <React.Fragment></React.Fragment>
-                            )}
-                        </select>
+                    <div className="row mb-4">
+                        <div className="form-group col-lg-3">
+                            <label
+                                className="col-sm-12 col-form-label"
+                                htmlFor="medium"
+                            >
+                                Publishers:
+                            </label>
+                            <select
+                                className="custom-select"
+                                name="medium"
+                                id="publishers"
+                                onChange={this.fetchClasses}
+                            >
+                                <option value="">-Select-</option>
+                                {this.props.publishers &&
+                                this.props.publishers.length > 0 ? (
+                                    this.props.publishers.map(p => {
+                                        return (
+                                            <option value={p.id}>
+                                                {p.name}
+                                            </option>
+                                        );
+                                    })
+                                ) : (
+                                    <React.Fragment></React.Fragment>
+                                )}
+                            </select>
+                        </div>
+
+                        <div className="form-group col-lg-3">
+                            <label
+                                className="col-sm-12 col-form-label"
+                                htmlFor="medium"
+                            >
+                                Classes:
+                            </label>
+                            <select
+                                className="custom-select"
+                                name="medium"
+                                id="classes"
+                                onChange={this.fetchSubjects}
+                            >
+                                <option value="">-Select-</option>
+                                {this.props.classes &&
+                                this.props.classes.length > 0 ? (
+                                    this.props.classes.map(p => {
+                                        return (
+                                            <option value={p.id}>
+                                                {p.name}
+                                            </option>
+                                        );
+                                    })
+                                ) : (
+                                    <React.Fragment></React.Fragment>
+                                )}
+                            </select>
+                        </div>
+
+                        <div className="form-group col-lg-3">
+                            <label
+                                className="col-sm-12 col-form-label"
+                                htmlFor="medium"
+                            >
+                                Subjects:
+                            </label>
+                            <select
+                                className="custom-select"
+                                name="medium"
+                                id="subjects"
+                                onChange={this.updateSubjectId}
+                            >
+                                <option value="">-Select-</option>
+                                {this.props.subjects &&
+                                this.props.subjects.length > 0 ? (
+                                    this.props.subjects.map(p => {
+                                        return (
+                                            <option value={p.id}>
+                                                {p.name}
+                                            </option>
+                                        );
+                                    })
+                                ) : (
+                                    <React.Fragment></React.Fragment>
+                                )}
+                            </select>
+                        </div>
+
+                        <div className="form-group col-lg-3">
+                            <label
+                                className="col-sm-12 col-form-label"
+                                htmlFor="title"
+                            >
+                                Title:
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="title"
+                                onChange={this.updateChapterId}
+                            />
+                        </div>
+
+                        <div className="form-group col-lg-12">
+                            <label className="col-sm-12 col-form-label">
+                                &nbsp;
+                            </label>
+                            <button
+                                className="btn btn-primary col-lg-12"
+                                type="button"
+                                disabled={this.props.loading}
+                                onClick={this.searchPapers}
+                            >
+                                {this.props.loading ? "Searching..." : "Search"}
+                            </button>
+                        </div>
                     </div>
 
-                    <div className="form-group col-lg-3">
-                        <label
-                            className="col-sm-12 col-form-label"
-                            htmlFor="medium"
-                        >
-                            Classes:
-                        </label>
-                        <select
-                            className="custom-select"
-                            name="medium"
-                            id="classes"
-                            onChange={this.fetchSubjects}
-                        >
-                            <option value="">-Select-</option>
-                            {this.props.classes &&
-                            this.props.classes.length > 0 ? (
-                                this.props.classes.map(p => {
-                                    return (
-                                        <option value={p.id}>{p.name}</option>
-                                    );
-                                })
-                            ) : (
-                                <React.Fragment></React.Fragment>
-                            )}
-                        </select>
-                    </div>
+                    <h3 className={`mt-4`}>Papers List</h3>
+                    <hr />
 
-                    <div className="form-group col-lg-3">
-                        <label
-                            className="col-sm-12 col-form-label"
-                            htmlFor="medium"
-                        >
-                            Subjects:
-                        </label>
-                        <select
-                            className="custom-select"
-                            name="medium"
-                            id="subjects"
-                            onChange={this.updateSubjectId}
-                        >
-                            <option value="">-Select-</option>
-                            {this.props.subjects &&
-                            this.props.subjects.length > 0 ? (
-                                this.props.subjects.map(p => {
-                                    return (
-                                        <option value={p.id}>{p.name}</option>
-                                    );
-                                })
-                            ) : (
-                                <React.Fragment></React.Fragment>
-                            )}
-                        </select>
-                    </div>
-
-                    <div className="form-group col-lg-3">
-                        <label
-                            className="col-sm-12 col-form-label"
-                            htmlFor="title"
-                        >
-                            Title:
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="title"
-                            onChange={this.updateChapterId}
-                        />
-                    </div>
-
-                    <div className="form-group col-lg-12">
-                        <label className="col-sm-12 col-form-label">
-                            &nbsp;
-                        </label>
-                        <button
-                            className="btn btn-primary col-lg-12"
-                            type="button"
-                            disabled={this.props.loading}
-                            onClick={this.searchPapers}
-                        >
-                            {this.props.loading ? "Searching..." : "Search"}
-                        </button>
-                    </div>
-                </div>
-
-                <h3 className={`mt-4`}>Papers List</h3>
-                <hr />
-
-                <div className="row papers-list px-3">
-                    {this.props.papers_list.length > 0 ? (
-                        this.props.papers_list.map((p, i) => {
-                            const urlPreview = $helper.buildPaperUrlWithParams(
-                                "preview",
-                                { __i: $helper.easyEncode(p.id), __p: true }
-                            );
-                            const url = $helper.buildPaperUrlWithParams(
-                                "preview",
-                                { __i: $helper.easyEncode(p.id) }
-                            );
-                            return (
-                                <div className="col-lg-4">
-                                    <div className="card pt-3 ml-2 mr-2 mb-4">
-                                        <div className="card-body px-0 pb-0 py-0">
-                                            <h4 className="card-title border-bottom pb-0 mb-2 border-bottom-0">
-                                                {p.title}
-                                            </h4>
-                                            <a
-                                                href={`${APP_URL}${urlPreview}`}
-                                                target={`_blank`}
-                                            >
-                                                <h6 className="card-title border-bottom pb-0 mb-2">
-                                                    {p.name} - {p.paper_date}
-                                                </h6>
-                                            </a>
-                                            <div className="col-lg-12 px-0 saved_paper_actions">
+                    <div className="row papers-list px-3">
+                        {this.props.papers_list.length > 0 ? (
+                            this.props.papers_list.map((p, i) => {
+                                const urlPreview = $helper.buildPaperUrlWithParams(
+                                    "preview",
+                                    { __i: $helper.easyEncode(p.id), __p: true }
+                                );
+                                const url = $helper.buildPaperUrlWithParams(
+                                    "preview",
+                                    { __i: $helper.easyEncode(p.id) }
+                                );
+                                return (
+                                    <div className="col-lg-4">
+                                        <div className="card pt-3 ml-2 mr-2 mb-4">
+                                            <div className="card-body px-0 pb-0 py-0">
+                                                <h4 className="card-title border-bottom pb-0 mb-2 border-bottom-0">
+                                                    {p.title}
+                                                </h4>
                                                 <a
                                                     href={`${APP_URL}${urlPreview}`}
                                                     target={`_blank`}
-                                                    className="col-lg-3 px-0"
                                                 >
-                                                    <button
-                                                        className="hover-scale btn btn-dark border-radius-0"
-                                                        title="Print"
-                                                        style={{ width: "25%" }}
-                                                    >
-                                                        <i
-                                                            className="fa fa-print"
-                                                            aria-hidden="true"
-                                                        ></i>
-                                                    </button>
+                                                    <h6 className="card-title border-bottom pb-0 mb-2">
+                                                        {p.name} -{" "}
+                                                        {p.paper_date}
+                                                    </h6>
                                                 </a>
-                                                <a
-                                                    onClick={() =>
-                                                        this.viewTopics(
-                                                            p.sections
-                                                        )
-                                                    }
-                                                    className="col-lg-3 px-0"
-                                                >
-                                                    <button
-                                                        className="hover-scale btn btn-dark border-radius-0"
-                                                        title="Topics"
-                                                        style={{ width: "25%" }}
+                                                <div className="col-lg-12 px-0 saved_paper_actions">
+                                                    <a
+                                                        href={`${APP_URL}${urlPreview}`}
+                                                        target={`_blank`}
+                                                        className="col-lg-3 px-0"
                                                     >
-                                                        <i
-                                                            className="fa fa-th-list"
-                                                            aria-hidden="true"
-                                                        ></i>
-                                                    </button>
-                                                </a>
-                                                <a
-                                                    href={`${APP_URL}${url}`}
-                                                    target={`_blank`}
-                                                    className="col-lg-3 px-0"
-                                                >
-                                                    <button
-                                                        className="hover-scale btn btn-dark border-radius-0"
-                                                        title="Edit"
-                                                        style={{ width: "25%" }}
-                                                    >
-                                                        <i
-                                                            className="fa fa-pencil"
-                                                            aria-hidden="true"
-                                                        ></i>
-                                                    </button>
-                                                </a>
-                                                <button
-                                                    className="hover-scale btn btn-dark col-lg-3 px-0 border-radius-0"
-                                                    title="Delete"
-                                                    onClick={() => {
-                                                        if (
-                                                            !window.confirm(
-                                                                "Are you sure?"
+                                                        <button
+                                                            className="hover-scale btn btn-dark border-radius-0"
+                                                            title="Print"
+                                                            style={{
+                                                                width: "25%"
+                                                            }}
+                                                        >
+                                                            <i
+                                                                className="fa fa-print"
+                                                                aria-hidden="true"
+                                                            ></i>
+                                                        </button>
+                                                    </a>
+                                                    <a
+                                                        onClick={() =>
+                                                            this.viewTopics(
+                                                                p.sections
                                                             )
-                                                        )
-                                                            return false;
-                                                        this.removeItem(p.id);
-                                                    }}
-                                                >
-                                                    <i
-                                                        className="fa fa-trash"
-                                                        aria-hidden="true"
-                                                    ></i>
-                                                </button>
+                                                        }
+                                                        className="col-lg-3 px-0"
+                                                    >
+                                                        <button
+                                                            className="hover-scale btn btn-dark border-radius-0"
+                                                            title="Topics"
+                                                            style={{
+                                                                width: "25%"
+                                                            }}
+                                                        >
+                                                            <i
+                                                                className="fa fa-th-list"
+                                                                aria-hidden="true"
+                                                            ></i>
+                                                        </button>
+                                                    </a>
+                                                    <a
+                                                        href={`${APP_URL}${url}`}
+                                                        target={`_blank`}
+                                                        className="col-lg-3 px-0"
+                                                    >
+                                                        <button
+                                                            className="hover-scale btn btn-dark border-radius-0"
+                                                            title="Edit"
+                                                            style={{
+                                                                width: "25%"
+                                                            }}
+                                                        >
+                                                            <i
+                                                                className="fa fa-pencil"
+                                                                aria-hidden="true"
+                                                            ></i>
+                                                        </button>
+                                                    </a>
+                                                    <button
+                                                        className="hover-scale btn btn-dark col-lg-3 px-0 border-radius-0"
+                                                        title="Delete"
+                                                        onClick={() => {
+                                                            if (
+                                                                !window.confirm(
+                                                                    "Are you sure?"
+                                                                )
+                                                            )
+                                                                return false;
+                                                            this.removeItem(
+                                                                p.id
+                                                            );
+                                                        }}
+                                                    >
+                                                        <i
+                                                            className="fa fa-trash"
+                                                            aria-hidden="true"
+                                                        ></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            );
-                        })
-                    ) : (
-                        <h4>Hit search from above to get result</h4>
-                    )}
-                </div>
+                                );
+                            })
+                        ) : (
+                            <h4>Hit search from above to get result</h4>
+                        )}
+                    </div>
 
-                <PopupModal>
-                    <h3>Topics</h3>
-                    <hr />
-                    {this.state.topics_list.length > 0 ? (
-                        this.state.topics_list.map(s => (
-                            <li className="my-0 text-left">
-                                {s.name.length <= 0 ? s.rtl_name : s.name}
-                            </li>
-                        ))
-                    ) : (
-                        <React.Fragment></React.Fragment>
-                    )}
-                </PopupModal>
+                    <PopupModal>
+                        <h3>Topics</h3>
+                        <hr />
+                        {this.state.topics_list.length > 0 ? (
+                            this.state.topics_list.map(s => (
+                                <li className="my-0 text-left">
+                                    {s.name.length <= 0 ? s.rtl_name : s.name}
+                                </li>
+                            ))
+                        ) : (
+                            <React.Fragment></React.Fragment>
+                        )}
+                    </PopupModal>
+                </section>
             </React.Fragment>
         );
     }

@@ -10,15 +10,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('dashboard') }}">Dashboard <span
-                            class="sr-only"></span></a>
+                    <a class="nav-link" href="{{ URL::to('dashboard') }}">Dashboard <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ URL::to('Papers/create-paper') }}">Generate Paper <span
                             class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ URL::to('saved-papers') }}">Saved Paper</a>
+                    <a class="nav-link" href="{{ URL::to('saved-papers') }}">Saved Papers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ URL::to('saved-papers?draft=true') }}">Draft Papers</a>
                 </li>
                 <li class="nav-item institute_name">
                     @isset($data->name)

@@ -208,6 +208,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $data = Institute::find($user->institute_id);
         $sections = $api->getSubjectSections($request)->getData(true);
+
         return view('react.' . $uri, [
             'data' => $data,
             'user' => $user,
@@ -248,7 +249,7 @@ class HomeController extends Controller
         return view('layouts.react_view', ['data' => $data, 'user' => $user]);
     }
 
-    public function oldPapers()
+    public function oldPapers(Request $request)
     {
         $user = Auth::user();
         $roles = Auth::user()->roles;
@@ -258,7 +259,21 @@ class HomeController extends Controller
 
         $data = Institute::find($user->institute_id);
         $publishers = SyllabusType::all()->toArray();
-        return view('react.old', ['data' => $data, 'user' => $user, 'publishers' => $publishers]);
+        $isDraft = (bool) $request->get('draft');
+        return view('react.old', ['data' => $data, 'user' => $user, 'publishers' => $publishers, 'isDraft' => $isDraft]);
+    }
+
+    public function draftPapers()
+    {
+        $user = Auth::user();
+        $roles = Auth::user()->roles;
+        if (empty($roles)) {
+            return redirect('access-denied');
+        }
+
+        $data = Institute::find($user->institute_id);
+        $publishers = SyllabusType::all()->toArray();
+        return view('react.draft', ['data' => $data, 'user' => $user, 'publishers' => $publishers]);
     }
 
     /**

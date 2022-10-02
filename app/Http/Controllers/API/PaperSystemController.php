@@ -1571,6 +1571,13 @@ class PaperSystemController extends Controller
         if (!empty($title))
             $result = $result->where('name', 'LIKE', "%{$title}%");
 
+
+        $isDraft = (bool) $request->post('isDraft');
+        if ($isDraft && $isDraft === true)
+            $result = $result->where('name', 'LIKE', "%draft%");
+        else
+            $result = $result->where('name', 'NOT LIKE', "%draft%");
+
         $result = $result
             ->where('added_by', $user_id)
             ->orderBy('paper_date', 'ASC')->get();
@@ -2012,6 +2019,7 @@ class PaperSystemController extends Controller
         $paper->is_saved = 1;
         $paper->save();
 
+        $data['status'] = true;
         $response['data'] = true;
         return response()->json($response);
     }
